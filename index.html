@@ -162,14 +162,14 @@
         
         .savings-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
             margin-top: 30px;
         }
         
         .savings-card {
             background: white;
-            padding: 25px;
+            padding: 20px 15px;
             border-radius: 10px;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
@@ -181,7 +181,7 @@
         }
         
         .savings-value {
-            font-size: 2em;
+            font-size: 1.6em;
             font-weight: bold;
             color: #9738A0;
             margin-bottom: 5px;
@@ -189,7 +189,8 @@
         
         .savings-label {
             color: #666;
-            font-size: 0.9em;
+            font-size: 0.8em;
+            line-height: 1.2;
         }
         
         .breakdown-section {
@@ -215,46 +216,7 @@
             border-top: 2px solid #FCB849;
         }
         
-        .email-capture {
-            background: linear-gradient(135deg, #FCB849 0%, #FF8C42 100%);
-            padding: 40px;
-            text-align: center;
-            margin-top: 40px;
-            border-radius: 15px;
-        }
-        
-        .email-capture h3 {
-            color: white;
-            font-size: 1.8em;
-            margin-bottom: 15px;
-        }
-        
-        .email-capture p {
-            color: white;
-            font-size: 1.1em;
-            margin-bottom: 25px;
-            opacity: 0.9;
-        }
-        
-        .email-form {
-            display: flex;
-            gap: 15px;
-            max-width: 500px;
-            margin: 0 auto;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .email-input {
-            flex: 1;
-            min-width: 250px;
-            padding: 15px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1em;
-        }
-        
-        .export-button, .submit-email {
+        .export-button {
             background: #9738A0;
             color: white;
             padding: 15px 30px;
@@ -267,7 +229,7 @@
             display: inline-block;
         }
         
-        .export-button:hover, .submit-email:hover {
+        .export-button:hover {
             background: #7a2d83;
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
@@ -318,46 +280,6 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
         
-        .success-message {
-            color: #44B8AA;
-            font-weight: bold;
-            margin-top: 15px;
-            display: none;
-        }
-        
-        .feedback-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #9738A0;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            z-index: 1000;
-            cursor: pointer;
-            font-size: 1em;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        }
-        
-        .feedback-button:hover {
-            background: #7a2d83;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
-        
-        .feedback-icon {
-            width: 20px;
-            height: 20px;
-        }
-        
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 2em;
@@ -375,19 +297,9 @@
                 padding: 20px;
             }
             
-            .email-form {
-                flex-direction: column;
-            }
-            
-            .email-input {
-                min-width: 100%;
-            }
-            
-            .feedback-button {
-                bottom: 10px;
-                right: 10px;
-                padding: 10px 20px;
-                font-size: 0.9em;
+            .savings-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
             }
         }
     </style>
@@ -512,18 +424,8 @@
                     </div>
                 </div>
                 
-                <div class="email-capture">
-                    <h3>Get Your Personalized ROI Report</h3>
-                    <p>Receive a detailed PDF analysis of your potential savings</p>
-                    <form class="email-form" onsubmit="handleEmailSubmit(event)">
-                        <input type="email" class="email-input" placeholder="Enter your email address" required>
-                        <button type="submit" class="submit-email">Get My Report</button>
-                    </form>
-                    <div class="success-message" id="success-message">Thank you! Check your email for your personalized report.</div>
-                </div>
-                
                 <div class="action-buttons">
-                    <button class="export-button" onclick="exportToPDF()">Download PDF Report</button>
+                    <button class="export-button" onclick="exportToPDF()" id="pdf-button">Download PDF Report</button>
                 </div>
             </div>
         </div>
@@ -534,14 +436,6 @@
             <a href="https://www.regiscompany.com/request-a-call/" target="_blank" class="cta-button">Schedule Your Demo</a>
         </div>
     </div>
-    
-    <!-- Feedback Button -->
-    <a href="https://docs.google.com/forms/d/e/1ZazMGm6I_nPPeTp9IvPAXS79hP_LF_U070MwJv29x-8/viewform" target="_blank" class="feedback-button">
-        <svg class="feedback-icon" fill="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
-        </svg>
-        Give Feedback
-    </a>
     
     <script>
         function calculateROI() {
@@ -606,33 +500,34 @@
             document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
         }
         
-        function handleEmailSubmit(event) {
-            event.preventDefault();
-            const email = event.target.querySelector('input[type="email"]').value;
-            
-            // In a real implementation, this would send the email to your server
-            console.log('Email captured:', email);
-            
-            // Show success message
-            document.getElementById('success-message').style.display = 'block';
-            
-            // Reset form
-            event.target.reset();
-            
-            // Hide message after 5 seconds
-            setTimeout(() => {
-                document.getElementById('success-message').style.display = 'none';
-            }, 5000);
-            
-            // In production, you could automatically generate and email the PDF here
-            // For now, we'll just show the success message
-        }
-        
         async function exportToPDF() {
-            const { jsPDF } = window.jspdf;
-            
-            // Create new PDF
-            const pdf = new jsPDF();
+            try {
+                // Add visual feedback
+                const button = document.getElementById('pdf-button');
+                const originalText = button.textContent;
+                button.textContent = 'Generating PDF...';
+                button.disabled = true;
+                
+                // Check if jsPDF is available
+                if (!window.jspdf) {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                    alert('PDF library not loaded. Please try again in a moment.');
+                    return;
+                }
+                
+                // Check if ROI data is available
+                if (!window.roiData) {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                    alert('Please calculate your ROI first by entering values in the form above.');
+                    return;
+                }
+                
+                const { jsPDF } = window.jspdf;
+                
+                // Create new PDF
+                const pdf = new jsPDF();
             
             // Add header
             pdf.setFillColor(68, 184, 170); // Teal
@@ -725,38 +620,90 @@
             pdf.text('Learn more at regiscompany.com', 105, 280, { align: 'center' });
             pdf.text('© The Regis Company', 105, 287, { align: 'center' });
             
-            // Save the PDF
-            pdf.save('Jumpstart_ROI_Report.pdf');
+            // Since direct downloads are blocked in this environment, open PDF in new window
+            try {
+                console.log('Creating PDF for new window display...');
+                const pdfDataUri = pdf.output('datauristring');
+                console.log('PDF data URI created');
+                
+                // Open PDF in new window with save options
+                const newWindow = window.open('', '_blank');
+                if (newWindow) {
+                    newWindow.document.write(`
+                        <!DOCTYPE html>
+                        <html>
+                            <head>
+                                <title>Jumpstart ROI Report - The Regis Company</title>
+                                <style>
+                                    body { margin: 0; padding: 20px; font-family: Arial, sans-serif; background: #f5f5f5; }
+                                    .header { text-align: center; margin-bottom: 20px; background: white; padding: 20px; border-radius: 10px; }
+                                    .header h1 { color: #44B8AA; margin: 0; }
+                                    .download-section { text-align: center; margin-bottom: 20px; }
+                                    .download-btn { 
+                                        background: #9738A0; color: white; padding: 12px 24px; 
+                                        text-decoration: none; border-radius: 25px; font-weight: bold;
+                                        display: inline-block; margin: 0 10px;
+                                    }
+                                    .download-btn:hover { background: #7a2d83; }
+                                    .pdf-container { border: 2px solid #ddd; border-radius: 10px; overflow: hidden; }
+                                    embed { width: 100%; height: 80vh; }
+                                    .instructions { background: white; padding: 15px; margin-bottom: 20px; border-radius: 10px; }
+                                </style>
+                            </head>
+                            <body>
+                                <div class="header">
+                                    <h1>📊 Your Jumpstart ROI Report</h1>
+                                </div>
+                                
+                                <div class="instructions">
+                                    <strong>💡 To save this PDF:</strong> Right-click on the PDF below and select "Save As..." or use the download button.
+                                </div>
+                                
+                                <div class="download-section">
+                                    <a href="${pdfDataUri}" download="Jumpstart_ROI_Report.pdf" class="download-btn">
+                                        📥 Download PDF
+                                    </a>
+                                    <button onclick="window.print()" class="download-btn" style="border: none; cursor: pointer;">
+                                        🖨️ Print PDF
+                                    </button>
+                                </div>
+                                
+                                <div class="pdf-container">
+                                    <embed src="${pdfDataUri}" type="application/pdf">
+                                </div>
+                            </body>
+                        </html>
+                    `);
+                    newWindow.document.close();
+                    console.log('PDF opened in new window with download options');
+                } else {
+                    // Popup blocked - show alert
+                    alert('Popup blocked! Please allow popups for this site and try again.');
+                }
+                
+            } catch (error) {
+                console.error('Error displaying PDF:', error);
+                alert('Unable to display PDF. Please ensure your browser allows popups and try again.');
+            }
+            
+            // Show success message
+            console.log('PDF generated successfully!');
+            
+            // Restore button
+            button.textContent = originalText;
+            button.disabled = false;
+            
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+            
+            // Restore button
+            const button = document.getElementById('pdf-button');
+            button.textContent = 'Download PDF Report';
+            button.disabled = false;
+            
+            alert('There was an error generating the PDF. Please try again.');
         }
-        
-        function openFeedback() {
-            // Get current calculator values for context
-            const feedbackData = {
-                courses: document.getElementById('courses').value,
-                learners: document.getElementById('learners').value,
-                roi: window.roiData ? window.roiData.roi : 'Not calculated',
-                timestamp: new Date().toLocaleString()
-            };
-            
-            // SETUP INSTRUCTIONS:
-            // 1. Create your Google Form
-            // 2. Get the form ID from the URL (it's the long string after /d/e/)
-            // 3. Replace YOUR_GOOGLE_FORM_ID below with your actual form ID
-            
-            const baseUrl = 'https://docs.google.com/forms/d/e/1ZazMGm6I_nPPeTp9IvPAXS79hP_LF_U070MwJv29x-8/viewform';
-            
-            // OPTIONAL: Pre-fill form fields with calculator data
-            // 1. In your Google Form, click the three dots menu > "Get pre-filled link"
-            // 2. Fill in dummy data and get the link
-            // 3. Look for "entry.XXXXX=value" in the URL for each field
-            // 4. Use those entry IDs below:
-            
-            // Example with pre-filled data:
-            // const formUrl = `${baseUrl}?entry.123456=${feedbackData.courses}&entry.789012=${feedbackData.roi}`;
-            
-            // For now, just open the blank form:
-            window.open(baseUrl, '_blank');
-        }
+    }
         
         // Add event listeners
         document.querySelectorAll('input[type="number"]').forEach(input => {
