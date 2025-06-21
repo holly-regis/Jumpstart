@@ -344,6 +344,7 @@
             z-index: 1000;
             cursor: pointer;
             font-size: 1em;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
         
         .feedback-button:hover {
@@ -535,12 +536,12 @@
     </div>
     
     <!-- Feedback Button -->
-    <button onclick="openFeedback()" class="feedback-button">
+    <a href="https://docs.google.com/forms/d/e/1ZazMGm6I_nPPeTp9IvPAXS79hP_LF_U070MwJv29x-8/viewform" target="_blank" class="feedback-button">
         <svg class="feedback-icon" fill="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
         </svg>
         Give Feedback
-    </button>
+    </a>
     
     <script>
         function calculateROI() {
@@ -758,7 +759,7 @@
         }
         
         // Add event listeners
-        document.querySelectorAll('input').forEach(input => {
+        document.querySelectorAll('input[type="number"]').forEach(input => {
             input.addEventListener('input', calculateROI);
         });
         
