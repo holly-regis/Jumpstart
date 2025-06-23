@@ -495,9 +495,6 @@
             
             // Show results
             document.getElementById('results').style.display = 'block';
-            
-            // Smooth scroll to results
-            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
         }
         
         async function exportToPDF() {
@@ -711,6 +708,15 @@
         });
         
         // Calculate on load
+        calculateROI();
+        
+        // Ensure page starts at top
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
+        });
+    </script>
+</body>
+</html>
         calculateROI();
     </script>
 </body>
